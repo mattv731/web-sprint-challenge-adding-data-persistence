@@ -15,6 +15,11 @@ router.get('/', (req, res, next) => {
 router.post('/', (req, res, next) => {
     Tasks.insert(req.body)
     .then(task => {
+        if (task.task_completed === 0) {
+            task.task_completed = false
+        } else {
+            task.task_completed = true
+        }
         res.status(201).json(task)
     })
     .catch(next)
